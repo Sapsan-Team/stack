@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo/core/repository/theme/settings_repository.dart';
+import 'package:todo/feature/theme/repository/settings_repository.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
   SettingsRepositoryImpl({required this.prefs});

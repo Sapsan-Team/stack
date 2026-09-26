@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo/core/providers/theme/theme_provider.dart';
+import 'package:todo/feature/theme/theme_provider.dart';
 
 class ThemeButton extends ConsumerWidget {
   const ThemeButton({super.key, this.padding = 8});
@@ -19,8 +19,8 @@ class ThemeButton extends ConsumerWidget {
   }
 
   IconData _iconForMode(ThemeMode mode) => switch (mode) {
-        ThemeMode.light => Icons.dark_mode,
-        ThemeMode.dark => Icons.brightness_auto,
-        ThemeMode.system => Icons.light_mode,
-      };
+    ThemeMode.light => Icons.dark_mode,
+    ThemeMode.dark => Icons.brightness_auto,
+    ThemeMode.system => Icons.light_mode,
+  };
 }

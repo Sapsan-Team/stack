@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo/core/providers/theme/theme_provider.dart';
+import 'package:todo/feature/locale/data/repository/locale_provider.dart';
+import 'package:todo/feature/theme/theme_provider.dart';
 import 'package:todo/core/router/router.dart';
 import 'package:todo/core/theme/colors.dart';
 
@@ -29,6 +31,16 @@ class App extends ConsumerWidget {
       ),
       themeMode: themeMode,
       routerConfig: router,
+      localizationsDelegates: const [
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+      ],
+      locale: ref.watch(localeProvider),
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('ru', 'RU'),
+      ],
       title: 'TODO',
     );
   }
