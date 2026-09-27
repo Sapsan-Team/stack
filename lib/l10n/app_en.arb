@@ -1,0 +1,7 @@
+{
+    "authScreenTitle": "Welcome to the cum zone!",
+    "loginButton": "Login",
+    "signupButton": "Sign up",
+    "authScreenPhoneLabel": "Phone number",
+    "authScreenPasswordLabel": "Password"
+}

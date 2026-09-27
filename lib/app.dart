@@ -5,6 +5,7 @@ import 'package:todo/feature/locale/data/repository/locale_provider.dart';
 import 'package:todo/feature/theme/theme_provider.dart';
 import 'package:todo/core/router/router.dart';
 import 'package:todo/core/theme/colors.dart';
+import 'package:todo/l10n/app_localizations.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -32,15 +33,13 @@ class App extends ConsumerWidget {
       themeMode: themeMode,
       routerConfig: router,
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
         DefaultCupertinoLocalizations.delegate,
       ],
       locale: ref.watch(localeProvider),
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('ru', 'RU'),
-      ],
+      supportedLocales: const [Locale('en', 'US'), Locale('ru', 'RU')],
       title: 'TODO',
     );
   }

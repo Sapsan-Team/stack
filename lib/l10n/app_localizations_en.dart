@@ -8,5 +8,18 @@ import 'app_localizations.dart';
 class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
+  @override
+  String get authScreenTitle => 'Welcome to the cum zone!';
 
+  @override
+  String get loginButton => 'Login';
+
+  @override
+  String get signupButton => 'Sign up';
+
+  @override
+  String get authScreenPhoneLabel => 'Phone number';
+
+  @override
+  String get authScreenPasswordLabel => 'Password';
 }

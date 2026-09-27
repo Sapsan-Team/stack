@@ -95,6 +95,35 @@ abstract class AppLocalizations {
     Locale('ru')
   ];
 
+  /// No description provided for @authScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to the cum zone!'**
+  String get authScreenTitle;
+
+  /// No description provided for @loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginButton;
+
+  /// No description provided for @signupButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signupButton;
+
+  /// No description provided for @authScreenPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get authScreenPhoneLabel;
+
+  /// No description provided for @authScreenPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get authScreenPasswordLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

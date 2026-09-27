@@ -12,6 +12,8 @@ dependencies:
   equatable: ^2.0.8
   flutter:
     sdk: flutter
+  flutter_bounceable: ^1.2.0
+  flutter_hooks: ^0.21.3+1
   flutter_localizations: # Обязательно
     sdk: flutter
   flutter_markdown: ^0.7.7+1

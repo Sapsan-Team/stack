@@ -9,10 +9,12 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.remote});
 
   @override
-  Future<User> getUser(int id) async {
+  Future<User> getUser(String phoneNumber, String password) async {
     try {
-      final remoteUser = await remote.fetchUser(id);
-
+      final remoteUser = await remote.fetchUserByPassword(
+        phoneNumber,
+        password,
+      );
       return remoteUser;
     } catch (e) {
       throw Exception('Failed to load user: $e');

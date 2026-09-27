@@ -1,0 +1,7 @@
+{
+    "authScreenTitle": "Здарова заебал!",
+    "loginButton": "Авторизоваться",
+    "signupButton": "Зарегистрироваться",
+    "authScreenPhoneLabel": "Номер телефона",
+    "authScreenPasswordLabel": "Пароль"
+}
