@@ -89,23 +89,29 @@ class AuthScreen extends HookConsumerWidget {
 
                               isLoading.value = true;
                               try {
-                                await ref
+                                final result = await ref
                                     .read(authNotifierProvider.notifier)
                                     .login(phone, password);
 
                                 if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(l10n.authSuccessMessage),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-                                  // context.go('/home');
-                                }
-                              } catch (error) {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('$error')),
+                                  result.fold(
+                                    (failure) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(failure.message),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    },
+                                    (user) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(l10n.authSuccessMessage),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                      // context.go('/home');
+                                    },
                                   );
                                 }
                               } finally {

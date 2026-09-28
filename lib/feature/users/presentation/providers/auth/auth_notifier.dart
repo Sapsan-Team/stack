@@ -1,5 +1,6 @@
-// feature/users/presentation/providers/auth_notifier.dart
+import 'package:either_dart/either.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo/core/error/failure.dart';
 import 'package:todo/feature/users/domain/entities/user.dart';
 import 'package:todo/feature/users/presentation/providers/user_provider.dart';
 
@@ -9,13 +10,20 @@ class AuthNotifier extends Notifier<User?> {
     return null;
   }
 
-  Future<void> login(String phone, String password) async {
+  Future<Either<Failure, User>> login(String phone, String password) async {
     final loginUseCase = ref.read(loginUseCaseProvider);
-    final user = await loginUseCase.execute(phone, password);
-    state = user;
+    final result = await loginUseCase.execute(phone, password);
+
+    result.fold(
+      (failure) {},
+      (user) => state = user,
+    );
+
+    return result;
   }
 
   void logout() {
     state = null;
   }
 }
+

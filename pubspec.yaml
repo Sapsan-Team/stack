@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   dio: ^5.11.1
+  either_dart: ^1.0.0
   equatable: ^2.0.8
   flutter:
     sdk: flutter
