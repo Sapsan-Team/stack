@@ -5,7 +5,7 @@ import 'package:todo/feature/users/data/datasources/remote/repositories/user_rem
 import 'package:todo/feature/users/data/repositories/user_repositories_impl.dart';
 import 'package:todo/feature/users/domain/entities/repositories/user_remote.dart';
 import 'package:todo/feature/users/domain/entities/repositories/user_repository.dart';
-import 'package:todo/feature/users/domain/useCases/auth/user_auth_uc.dart';
+import 'package:todo/feature/users/domain/use_cases/auth/user_auth_uc.dart';
 
 // 1. Remote Data Source
 final userRemoteDataSourceProvider = Provider<UserRemoteDataSource>((ref) {
@@ -24,4 +24,3 @@ final userRepositoryProvider = Provider<UserRepository>((ref) {
 final loginUseCaseProvider = Provider<LoginUserUseCase>((ref) {
   return LoginUserUseCase(userRepository: ref.watch(userRepositoryProvider));
 });
-

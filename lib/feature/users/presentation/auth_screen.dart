@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todo/feature/users/presentation/providers/auth/auth_notifier_provider.dart';
 import 'package:todo/l10n/app_localizations.dart';
+import 'package:todo/widgets/theme_button.dart';
 
 class AuthScreen extends HookConsumerWidget {
   const AuthScreen({super.key});
@@ -15,6 +16,11 @@ class AuthScreen extends HookConsumerWidget {
     final isLoading = useState(false);
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Row(spacing: 8, children: [ThemeButton()]),
+        ],
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),
@@ -96,7 +102,9 @@ class AuthScreen extends HookConsumerWidget {
                                 if (context.mounted) {
                                   result.fold(
                                     (failure) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         SnackBar(
                                           content: Text(failure.message),
                                           backgroundColor: Colors.red,
@@ -104,9 +112,13 @@ class AuthScreen extends HookConsumerWidget {
                                       );
                                     },
                                     (user) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         SnackBar(
-                                          content: Text(l10n.authSuccessMessage),
+                                          content: Text(
+                                            l10n.authSuccessMessage,
+                                          ),
                                           backgroundColor: Colors.green,
                                         ),
                                       );
