@@ -22,6 +22,24 @@ class MockSuccessRemoteDataSource implements UserRemoteDataSource {
       ),
     );
   }
+
+  @override
+  Future<AuthResponseDto> register({
+    required String phoneNumber,
+    required String username,
+    required String displayName,
+    required String password,
+  }) async {
+    return const AuthResponseDto(
+      token: 'jwt_registered_token',
+      user: UserDto(
+        id: 'u2',
+        phoneNumber: '+79997654321',
+        username: 'newuser',
+        displayName: 'New User',
+      ),
+    );
+  }
 }
 
 class MockAuthFailureRemoteDataSource implements UserRemoteDataSource {
@@ -39,6 +57,23 @@ class MockAuthFailureRemoteDataSource implements UserRemoteDataSource {
       ),
     );
   }
+
+  @override
+  Future<AuthResponseDto> register({
+    required String phoneNumber,
+    required String username,
+    required String displayName,
+    required String password,
+  }) async {
+    throw DioException(
+      requestOptions: RequestOptions(path: '/api/auth/register'),
+      response: Response(
+        requestOptions: RequestOptions(path: '/api/auth/register'),
+        statusCode: 409,
+        data: {'error': 'Пользователь с таким номером уже зарегистрирован'},
+      ),
+    );
+  }
 }
 
 void main() {
@@ -52,7 +87,7 @@ void main() {
   });
 
   group('UserRepositoryImpl with Either', () {
-    test('returns Right(User) and saves token on success', () async {
+    test('returns Right(User) and saves token on login success', () async {
       final repo = UserRepositoryImpl(
         remote: MockSuccessRemoteDataSource(),
         prefs: prefs,
@@ -85,6 +120,55 @@ void main() {
         (failure) {
           expect(failure, isA<AuthFailure>());
           expect(failure.message, 'Неверный телефон или пароль');
+        },
+        (user) => fail('Expected Left, got Right: $user'),
+      );
+    });
+
+    test('returns Right(User) and saves token on register success', () async {
+      final repo = UserRepositoryImpl(
+        remote: MockSuccessRemoteDataSource(),
+        prefs: prefs,
+      );
+
+      final result = await repo.register(
+        phoneNumber: '+79997654321',
+        username: 'newuser',
+        displayName: 'New User',
+        password: 'password123',
+      );
+
+      expect(result.isRight, isTrue);
+      result.fold(
+        (failure) => fail('Expected Right, got Left: $failure'),
+        (user) {
+          expect(user.id, 'u2');
+          expect(user.phoneNumber, '+79997654321');
+          expect(user.username, 'newuser');
+          expect(user.displayName, 'New User');
+        },
+      );
+      expect(prefs.getString('auth_token'), 'jwt_registered_token');
+    });
+
+    test('returns Left(ServerFailure) on 409 conflict during register', () async {
+      final repo = UserRepositoryImpl(
+        remote: MockAuthFailureRemoteDataSource(),
+        prefs: prefs,
+      );
+
+      final result = await repo.register(
+        phoneNumber: '+79997654321',
+        username: 'newuser',
+        displayName: 'New User',
+        password: 'password123',
+      );
+
+      expect(result.isLeft, isTrue);
+      result.fold(
+        (failure) {
+          expect(failure, isA<ServerFailure>());
+          expect(failure.message, 'Пользователь с таким номером уже зарегистрирован');
         },
         (user) => fail('Expected Left, got Right: $user'),
       );

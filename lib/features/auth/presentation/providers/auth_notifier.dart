@@ -22,6 +22,28 @@ class AuthNotifier extends Notifier<User?> {
     return result;
   }
 
+  Future<Either<Failure, User>> register({
+    required String phone,
+    required String username,
+    required String displayName,
+    required String password,
+  }) async {
+    final registerUseCase = ref.read(registerUseCaseProvider);
+    final result = await registerUseCase.execute(
+      phoneNumber: phone,
+      username: username,
+      displayName: displayName,
+      password: password,
+    );
+
+    result.fold(
+      (failure) {},
+      (user) => state = user,
+    );
+
+    return result;
+  }
+
   void logout() {
     state = null;
   }

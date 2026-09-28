@@ -101,20 +101,38 @@ abstract class AppLocalizations {
   /// No description provided for @authScreenTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to the cum zone!'**
+  /// **'Welcome to the animal shelter'**
   String get authScreenTitle;
+
+  /// No description provided for @registerScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create shelter account'**
+  String get registerScreenTitle;
 
   /// No description provided for @loginButton.
   ///
   /// In en, this message translates to:
-  /// **'Login'**
+  /// **'Sign In'**
   String get loginButton;
 
   /// No description provided for @signupButton.
   ///
   /// In en, this message translates to:
-  /// **'Sign up'**
+  /// **'Sign Up'**
   String get signupButton;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign In'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Sign Up'**
+  String get dontHaveAccount;
 
   /// No description provided for @authScreenPhoneLabel.
   ///
@@ -128,11 +146,35 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get authScreenPasswordLabel;
 
+  /// No description provided for @usernameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get usernameLabel;
+
+  /// No description provided for @displayNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get displayNameLabel;
+
+  /// No description provided for @confirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPasswordLabel;
+
   /// No description provided for @authSuccessMessage.
   ///
   /// In en, this message translates to:
   /// **'Successfully signed in!'**
   String get authSuccessMessage;
+
+  /// No description provided for @registerSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration successful!'**
+  String get registerSuccessMessage;
 
   /// No description provided for @authFillAllFieldsError.
   ///
@@ -157,6 +199,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Server error'**
   String get serverErrorMessage;
+
+  /// No description provided for @fieldRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get fieldRequiredError;
+
+  /// No description provided for @invalidPhoneFormatError.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid format (+77011234567, 8 to 15 digits)'**
+  String get invalidPhoneFormatError;
+
+  /// No description provided for @invalidUsernameFormatError.
+  ///
+  /// In en, this message translates to:
+  /// **'3 to 30 characters (letters, numbers and _)'**
+  String get invalidUsernameFormatError;
+
+  /// No description provided for @displayNameTooLongError.
+  ///
+  /// In en, this message translates to:
+  /// **'Name must not exceed 50 characters'**
+  String get displayNameTooLongError;
+
+  /// No description provided for @passwordTooShortError.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters'**
+  String get passwordTooShortError;
+
+  /// No description provided for @passwordsDoNotMatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatchError;
 }
 
 class _AppLocalizationsDelegate

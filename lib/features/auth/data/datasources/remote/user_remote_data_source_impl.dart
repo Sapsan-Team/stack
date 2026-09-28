@@ -18,5 +18,25 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final data = response.data as Map<String, dynamic>;
     return AuthResponseDto.fromJson(data);
   }
+
+  @override
+  Future<AuthResponseDto> register({
+    required String phoneNumber,
+    required String username,
+    required String displayName,
+    required String password,
+  }) async {
+    final response = await dio.post(
+      '/api/auth/register',
+      data: {
+        'phone_number': phoneNumber,
+        'username': username,
+        'display_name': displayName,
+        'password': password,
+      },
+    );
+    final data = response.data as Map<String, dynamic>;
+    return AuthResponseDto.fromJson(data);
+  }
 }
 

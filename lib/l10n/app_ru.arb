@@ -1,12 +1,25 @@
 {
     "authScreenTitle": "Добро пожаловать в приют для животных",
+    "registerScreenTitle": "Регистрация в приюте",
     "loginButton": "Авторизоваться",
     "signupButton": "Зарегистрироваться",
+    "alreadyHaveAccount": "Уже есть аккаунт? Войти",
+    "dontHaveAccount": "Нет аккаунта? Зарегистрироваться",
     "authScreenPhoneLabel": "Номер телефона",
     "authScreenPasswordLabel": "Пароль",
+    "usernameLabel": "Имя пользователя (username)",
+    "displayNameLabel": "Отображаемое имя",
+    "confirmPasswordLabel": "Подтвердите пароль",
     "authSuccessMessage": "Авторизация прошла успешно!",
+    "registerSuccessMessage": "Регистрация прошла успешно!",
     "authFillAllFieldsError": "Заполните все поля",
     "authInvalidCredentialsError": "Неверный номер телефона или пароль",
     "networkErrorMessage": "Ошибка подключения к серверу",
-    "serverErrorMessage": "Ошибка сервера"
+    "serverErrorMessage": "Ошибка сервера",
+    "fieldRequiredError": "Обязательное поле",
+    "invalidPhoneFormatError": "Неверный формат (+77011234567, от 8 до 15 цифр)",
+    "invalidUsernameFormatError": "От 3 до 30 символов (латиница, цифры и _)",
+    "displayNameTooLongError": "Имя не должно превышать 50 символов",
+    "passwordTooShortError": "Пароль должен быть не менее 8 символов",
+    "passwordsDoNotMatchError": "Пароли не совпадают"
 }

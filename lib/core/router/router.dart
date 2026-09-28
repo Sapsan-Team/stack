@@ -1,9 +1,14 @@
 import 'package:go_router/go_router.dart';
 import 'package:todo/core/router/routes.dart';
 import 'package:todo/features/auth/presentation/auth_screen.dart';
+import 'package:todo/features/auth/presentation/register_screen.dart';
 
 final router = GoRouter(
   routes: [
-    GoRoute(path: Routes.auth, builder: (context, state) => AuthScreen()),
+    GoRoute(path: Routes.auth, builder: (context, state) => const AuthScreen()),
+    GoRoute(
+      path: Routes.register,
+      builder: (context, state) => const RegisterScreen(),
+    ),
   ],
 );

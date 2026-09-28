@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   flutter_bounceable: ^1.2.0
   flutter_hooks: ^0.21.3+1
-  flutter_localizations: # Обязательно
+  flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.7+1
   freezed_annotation: ^3.1.0
@@ -35,26 +35,3 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-  fonts:
-    - family: Unbounded
-      fonts:
-        - asset: assets/fonts/Unbounded-300-latin.ttf
-          weight: 300
-        - asset: assets/fonts/Unbounded-300-cyrillic.ttf
-          weight: 300
-        - asset: assets/fonts/Unbounded-400-latin.ttf
-          weight: 400
-        - asset: assets/fonts/Unbounded-400-cyrillic.ttf
-          weight: 400
-        - asset: assets/fonts/Unbounded-500-latin.ttf
-          weight: 500
-        - asset: assets/fonts/Unbounded-500-cyrillic.ttf
-          weight: 500
-        - asset: assets/fonts/Unbounded-600-latin.ttf
-          weight: 600
-        - asset: assets/fonts/Unbounded-600-cyrillic.ttf
-          weight: 600
-        - asset: assets/fonts/Unbounded-700-latin.ttf
-          weight: 700
-        - asset: assets/fonts/Unbounded-700-cyrillic.ttf
-          weight: 700

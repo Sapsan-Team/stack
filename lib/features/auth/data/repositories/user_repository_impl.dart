@@ -28,27 +28,54 @@ class UserRepositoryImpl implements UserRepository {
       await prefs.setString(tokenKey, authResponse.token);
       return Right(authResponse.user.toDomain());
     } on DioException catch (e) {
-      final data = e.response?.data;
-      String? errorMsg;
-      if (data is Map && data['error'] is String) {
-        errorMsg = data['error'] as String;
-      }
-
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout ||
-          e.type == DioExceptionType.sendTimeout ||
-          e.type == DioExceptionType.connectionError) {
-        return Left(NetworkFailure(errorMsg));
-      }
-
-      if (e.response?.statusCode == 401) {
-        return Left(AuthFailure(errorMsg));
-      }
-
-      return Left(ServerFailure(errorMsg ?? e.message));
+      return _handleDioException(e);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failure, User>> register({
+    required String phoneNumber,
+    required String username,
+    required String displayName,
+    required String password,
+  }) async {
+    try {
+      final authResponse = await remote.register(
+        phoneNumber: phoneNumber,
+        username: username,
+        displayName: displayName,
+        password: password,
+      );
+      await prefs.setString(tokenKey, authResponse.token);
+      return Right(authResponse.user.toDomain());
+    } on DioException catch (e) {
+      return _handleDioException(e);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Left<Failure, User> _handleDioException(DioException e) {
+    final data = e.response?.data;
+    String? errorMsg;
+    if (data is Map && data['error'] is String) {
+      errorMsg = data['error'] as String;
+    }
+
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout ||
+        e.type == DioExceptionType.sendTimeout ||
+        e.type == DioExceptionType.connectionError) {
+      return Left(NetworkFailure(errorMsg));
+    }
+
+    if (e.response?.statusCode == 401) {
+      return Left(AuthFailure(errorMsg));
+    }
+
+    return Left(ServerFailure(errorMsg ?? e.message));
   }
 }
 

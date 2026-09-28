@@ -10,20 +10,30 @@ import 'package:todo/l10n/app_localizations.dart';
 import 'package:todo/widgets/locale_button.dart';
 import 'package:todo/widgets/theme_button.dart';
 
-class AuthScreen extends HookConsumerWidget {
-  const AuthScreen({super.key});
+class RegisterScreen extends HookConsumerWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final formKey = useMemoized(() => GlobalKey<FormState>());
+
     final phoneController = useTextEditingController();
+    final usernameController = useTextEditingController();
+    final displayNameController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final confirmPasswordController = useTextEditingController();
+
     final obscurePassword = useState(true);
+    final obscureConfirmPassword = useState(true);
     final isLoading = useState(false);
 
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          l10n.registerScreenTitle,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
         actions: const [
           LocaleButton(),
           ThemeButton(),
@@ -51,7 +61,7 @@ class AuthScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      l10n.authScreenTitle,
+                      l10n.registerScreenTitle,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 18,
@@ -60,7 +70,7 @@ class AuthScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    // Phone field
+                    // Phone Number
                     TextFormField(
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
@@ -74,7 +84,34 @@ class AuthScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Password field
+                    // Username
+                    TextFormField(
+                      controller: usernameController,
+                      decoration: InputDecoration(
+                        labelText: l10n.usernameLabel,
+                        hintText: 'john_doe',
+                        prefixIcon: const Icon(Icons.alternate_email, size: 20),
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (v) => AuthValidators.validateUsername(v, l10n),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Display Name
+                    TextFormField(
+                      controller: displayNameController,
+                      decoration: InputDecoration(
+                        labelText: l10n.displayNameLabel,
+                        hintText: 'John Doe',
+                        prefixIcon: const Icon(Icons.person_outline, size: 20),
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (v) =>
+                          AuthValidators.validateDisplayName(v, l10n),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Password
                     TextFormField(
                       controller: passwordController,
                       obscureText: obscurePassword.value,
@@ -96,9 +133,38 @@ class AuthScreen extends HookConsumerWidget {
                       ),
                       validator: (v) => AuthValidators.validatePassword(v, l10n),
                     ),
+                    const SizedBox(height: 16),
+
+                    // Confirm Password
+                    TextFormField(
+                      controller: confirmPasswordController,
+                      obscureText: obscureConfirmPassword.value,
+                      decoration: InputDecoration(
+                        labelText: l10n.confirmPasswordLabel,
+                        prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            obscureConfirmPassword.value
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            obscureConfirmPassword.value =
+                                !obscureConfirmPassword.value;
+                          },
+                        ),
+                      ),
+                      validator: (v) => AuthValidators.validateConfirmPassword(
+                        v,
+                        passwordController.text,
+                        l10n,
+                      ),
+                    ),
                     const SizedBox(height: 24),
 
-                    // Login button
+                    // Submit Button
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
@@ -117,9 +183,12 @@ class AuthScreen extends HookConsumerWidget {
                               try {
                                 final result = await ref
                                     .read(authNotifierProvider.notifier)
-                                    .login(
-                                      phoneController.text.trim(),
-                                      passwordController.text,
+                                    .register(
+                                      phone: phoneController.text.trim(),
+                                      username: usernameController.text.trim(),
+                                      displayName:
+                                          displayNameController.text.trim(),
+                                      password: passwordController.text,
                                     );
 
                                 if (context.mounted) {
@@ -157,12 +226,11 @@ class AuthScreen extends HookConsumerWidget {
                                       ).showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            l10n.authSuccessMessage,
+                                            l10n.registerSuccessMessage,
                                           ),
                                           backgroundColor: Colors.green,
                                         ),
                                       );
-                                      // context.go('/home');
                                     },
                                   );
                                 }
@@ -177,7 +245,7 @@ class AuthScreen extends HookConsumerWidget {
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
                           : Text(
-                              l10n.loginButton,
+                              l10n.signupButton,
                               style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -186,21 +254,16 @@ class AuthScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 12),
 
-                    // Signup navigation button
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                    // Back to login button
+                    TextButton(
                       onPressed: () {
-                        context.push(Routes.register);
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go(Routes.auth);
+                        }
                       },
-                      child: Text(
-                        l10n.dontHaveAccount,
-                        style: const TextStyle(fontSize: 14),
-                      ),
+                      child: Text(l10n.alreadyHaveAccount),
                     ),
                   ],
                 ),
