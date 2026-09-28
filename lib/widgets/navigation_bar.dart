@@ -72,7 +72,7 @@ class BottomNavBar extends ConsumerWidget {
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeOutCubic,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     decoration: BoxDecoration(
                       color: isSelected ? blueDim : Colors.transparent,
                       borderRadius: BorderRadius.circular(32),
