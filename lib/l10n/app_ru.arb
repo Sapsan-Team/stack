@@ -21,5 +21,17 @@
     "invalidUsernameFormatError": "От 3 до 30 символов (латиница, цифры и _)",
     "displayNameTooLongError": "Имя не должно превышать 50 символов",
     "passwordTooShortError": "Пароль должен быть не менее 8 символов",
-    "passwordsDoNotMatchError": "Пароли не совпадают"
+    "passwordsDoNotMatchError": "Пароли не совпадают",
+    "homeScreenTitle": "Главная",
+    "logoutButton": "Выйти",
+    "emptyStateTitle": "Здесь пока ничего нет",
+    "emptyStateSubtitle": "Список задач и питомцев пуст",
+    "navHome": "Главная",
+    "navPets": "Питомцы",
+    "navTasks": "Задачи",
+    "navProfile": "Профиль",
+    "home": "Главная",
+    "materials": "Материалы",
+    "my_vocabulary": "Мой словарь",
+    "profile": "Профиль"
 }

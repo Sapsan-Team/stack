@@ -21,5 +21,17 @@
     "invalidUsernameFormatError": "3 to 30 characters (letters, numbers and _)",
     "displayNameTooLongError": "Name must not exceed 50 characters",
     "passwordTooShortError": "Password must be at least 8 characters",
-    "passwordsDoNotMatchError": "Passwords do not match"
+    "passwordsDoNotMatchError": "Passwords do not match",
+    "homeScreenTitle": "Home",
+    "logoutButton": "Log Out",
+    "emptyStateTitle": "Nothing here yet",
+    "emptyStateSubtitle": "Your list of tasks and pets is empty",
+    "navHome": "Home",
+    "navPets": "Pets",
+    "navTasks": "Tasks",
+    "navProfile": "Profile",
+    "home": "Home",
+    "materials": "Materials",
+    "my_vocabulary": "My vocabulary",
+    "profile": "Profile"
 }

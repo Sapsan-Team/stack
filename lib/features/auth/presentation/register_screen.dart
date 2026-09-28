@@ -231,6 +231,7 @@ class RegisterScreen extends HookConsumerWidget {
                                           backgroundColor: Colors.green,
                                         ),
                                       );
+                                      context.go(Routes.home);
                                     },
                                   );
                                 }

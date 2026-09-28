@@ -1,5 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo/core/error/failure.dart';
 import 'package:todo/features/auth/domain/entities/user.dart';
 import 'package:todo/features/auth/presentation/providers/auth_provider.dart';
@@ -44,7 +45,9 @@ class AuthNotifier extends Notifier<User?> {
     return result;
   }
 
-  void logout() {
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('auth_token');
     state = null;
   }
 }

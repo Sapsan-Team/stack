@@ -23,12 +23,7 @@ class AuthScreen extends HookConsumerWidget {
     final isLoading = useState(false);
 
     return Scaffold(
-      appBar: AppBar(
-        actions: const [
-          LocaleButton(),
-          ThemeButton(),
-        ],
-      ),
+      appBar: AppBar(actions: const [LocaleButton(), ThemeButton()]),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -39,9 +34,6 @@ class AuthScreen extends HookConsumerWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color: Theme.of(context).cardColor.withValues(alpha: 0.15),
-                border: Border.all(
-                  color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
-                ),
               ),
               child: Form(
                 key: formKey,
@@ -94,7 +86,8 @@ class AuthScreen extends HookConsumerWidget {
                           },
                         ),
                       ),
-                      validator: (v) => AuthValidators.validatePassword(v, l10n),
+                      validator: (v) =>
+                          AuthValidators.validatePassword(v, l10n),
                     ),
                     const SizedBox(height: 24),
 
@@ -109,7 +102,8 @@ class AuthScreen extends HookConsumerWidget {
                       onPressed: isLoading.value
                           ? null
                           : () async {
-                              if (!(formKey.currentState?.validate() ?? false)) {
+                              if (!(formKey.currentState?.validate() ??
+                                  false)) {
                                 return;
                               }
 
@@ -162,7 +156,7 @@ class AuthScreen extends HookConsumerWidget {
                                           backgroundColor: Colors.green,
                                         ),
                                       );
-                                      // context.go('/home');
+                                      context.go(Routes.home);
                                     },
                                   );
                                 }

@@ -78,4 +78,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatchError => 'Passwords do not match';
+
+  @override
+  String get homeScreenTitle => 'Home';
+
+  @override
+  String get logoutButton => 'Log Out';
+
+  @override
+  String get emptyStateTitle => 'Nothing here yet';
+
+  @override
+  String get emptyStateSubtitle => 'Your list of tasks and pets is empty';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navPets => 'Pets';
+
+  @override
+  String get navTasks => 'Tasks';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get materials => 'Materials';
+
+  @override
+  String get my_vocabulary => 'My vocabulary';
+
+  @override
+  String get profile => 'Profile';
 }

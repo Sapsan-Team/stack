@@ -79,4 +79,40 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatchError => 'Пароли не совпадают';
+
+  @override
+  String get homeScreenTitle => 'Главная';
+
+  @override
+  String get logoutButton => 'Выйти';
+
+  @override
+  String get emptyStateTitle => 'Здесь пока ничего нет';
+
+  @override
+  String get emptyStateSubtitle => 'Список задач и питомцев пуст';
+
+  @override
+  String get navHome => 'Главная';
+
+  @override
+  String get navPets => 'Питомцы';
+
+  @override
+  String get navTasks => 'Задачи';
+
+  @override
+  String get navProfile => 'Профиль';
+
+  @override
+  String get home => 'Главная';
+
+  @override
+  String get materials => 'Материалы';
+
+  @override
+  String get my_vocabulary => 'Мой словарь';
+
+  @override
+  String get profile => 'Профиль';
 }
