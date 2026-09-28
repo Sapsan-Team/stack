@@ -1,19 +1,20 @@
 abstract class Failure {
-  final String message;
-  const Failure(this.message);
+  final String? message;
+  const Failure([this.message]);
 
   @override
-  String toString() => message;
+  String toString() => message ?? runtimeType.toString();
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure([super.message = 'Ошибка сервера']);
+  const ServerFailure([super.message]);
 }
 
 class NetworkFailure extends Failure {
-  const NetworkFailure([super.message = 'Ошибка сети или соединения']);
+  const NetworkFailure([super.message]);
 }
 
 class AuthFailure extends Failure {
-  const AuthFailure([super.message = 'Неверный номер телефона или пароль']);
+  const AuthFailure([super.message]);
 }
+

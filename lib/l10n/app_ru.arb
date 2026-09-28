@@ -1,8 +1,12 @@
 {
-    "authScreenTitle": "Здарова заебал!",
+    "authScreenTitle": "Добро пожаловать в приют для животных",
     "loginButton": "Авторизоваться",
     "signupButton": "Зарегистрироваться",
     "authScreenPhoneLabel": "Номер телефона",
     "authScreenPasswordLabel": "Пароль",
-    "authSuccessMessage": "Авторизация прошла успешно!"
+    "authSuccessMessage": "Авторизация прошла успешно!",
+    "authFillAllFieldsError": "Заполните все поля",
+    "authInvalidCredentialsError": "Неверный номер телефона или пароль",
+    "networkErrorMessage": "Ошибка подключения к серверу",
+    "serverErrorMessage": "Ошибка сервера"
 }

@@ -9,7 +9,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get authScreenTitle => 'Здарова заебал!';
+  String get authScreenTitle => 'Добро пожаловать в приют для животных';
 
   @override
   String get loginButton => 'Авторизоваться';
@@ -25,4 +25,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get authSuccessMessage => 'Авторизация прошла успешно!';
+
+  @override
+  String get authFillAllFieldsError => 'Заполните все поля';
+
+  @override
+  String get authInvalidCredentialsError =>
+      'Неверный номер телефона или пароль';
+
+  @override
+  String get networkErrorMessage => 'Ошибка подключения к серверу';
+
+  @override
+  String get serverErrorMessage => 'Ошибка сервера';
 }

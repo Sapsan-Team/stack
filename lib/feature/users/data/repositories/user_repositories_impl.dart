@@ -38,14 +38,14 @@ class UserRepositoryImpl implements UserRepository {
           e.type == DioExceptionType.receiveTimeout ||
           e.type == DioExceptionType.sendTimeout ||
           e.type == DioExceptionType.connectionError) {
-        return Left(NetworkFailure(errorMsg ?? 'Ошибка подключения к серверу'));
+        return Left(NetworkFailure(errorMsg));
       }
 
       if (e.response?.statusCode == 401) {
-        return Left(AuthFailure(errorMsg ?? 'Неверный номер телефона или пароль'));
+        return Left(AuthFailure(errorMsg));
       }
 
-      return Left(ServerFailure(errorMsg ?? e.message ?? 'Ошибка сервера'));
+      return Left(ServerFailure(errorMsg ?? e.message));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

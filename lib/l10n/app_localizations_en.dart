@@ -25,4 +25,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authSuccessMessage => 'Successfully signed in!';
+
+  @override
+  String get authFillAllFieldsError => 'Please fill in all fields';
+
+  @override
+  String get authInvalidCredentialsError => 'Invalid phone number or password';
+
+  @override
+  String get networkErrorMessage => 'Server connection error';
+
+  @override
+  String get serverErrorMessage => 'Server error';
 }

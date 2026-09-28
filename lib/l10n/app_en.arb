@@ -4,5 +4,9 @@
     "signupButton": "Sign up",
     "authScreenPhoneLabel": "Phone number",
     "authScreenPasswordLabel": "Password",
-    "authSuccessMessage": "Successfully signed in!"
+    "authSuccessMessage": "Successfully signed in!",
+    "authFillAllFieldsError": "Please fill in all fields",
+    "authInvalidCredentialsError": "Invalid phone number or password",
+    "networkErrorMessage": "Server connection error",
+    "serverErrorMessage": "Server error"
 }

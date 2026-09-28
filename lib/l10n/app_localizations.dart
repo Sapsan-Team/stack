@@ -133,6 +133,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Successfully signed in!'**
   String get authSuccessMessage;
+
+  /// No description provided for @authFillAllFieldsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all fields'**
+  String get authFillAllFieldsError;
+
+  /// No description provided for @authInvalidCredentialsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone number or password'**
+  String get authInvalidCredentialsError;
+
+  /// No description provided for @networkErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Server connection error'**
+  String get networkErrorMessage;
+
+  /// No description provided for @serverErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error'**
+  String get serverErrorMessage;
 }
 
 class _AppLocalizationsDelegate

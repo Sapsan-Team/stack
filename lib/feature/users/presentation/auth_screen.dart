@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:todo/core/error/failure.dart';
 import 'package:todo/feature/users/presentation/providers/auth/auth_notifier_provider.dart';
 import 'package:todo/l10n/app_localizations.dart';
+import 'package:todo/widgets/locale_button.dart';
 import 'package:todo/widgets/theme_button.dart';
 
 class AuthScreen extends HookConsumerWidget {
@@ -17,8 +19,9 @@ class AuthScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Row(spacing: 8, children: [ThemeButton()]),
+        actions: const [
+          LocaleButton(),
+          ThemeButton(),
         ],
       ),
       body: Center(
@@ -86,8 +89,8 @@ class AuthScreen extends HookConsumerWidget {
 
                               if (phone.isEmpty || password.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Заполните все поля'),
+                                  SnackBar(
+                                    content: Text(l10n.authFillAllFieldsError),
                                   ),
                                 );
                                 return;
@@ -102,11 +105,28 @@ class AuthScreen extends HookConsumerWidget {
                                 if (context.mounted) {
                                   result.fold(
                                     (failure) {
+                                      final errorMessage = switch (failure) {
+                                        AuthFailure(:final message?)
+                                            when message.isNotEmpty =>
+                                          message,
+                                        AuthFailure() =>
+                                          l10n.authInvalidCredentialsError,
+                                        NetworkFailure(:final message?)
+                                            when message.isNotEmpty =>
+                                          message,
+                                        NetworkFailure() =>
+                                          l10n.networkErrorMessage,
+                                        ServerFailure(:final message?)
+                                            when message.isNotEmpty =>
+                                          message,
+                                        _ => l10n.serverErrorMessage,
+                                      };
+
                                       ScaffoldMessenger.of(
                                         context,
                                       ).showSnackBar(
                                         SnackBar(
-                                          content: Text(failure.message),
+                                          content: Text(errorMessage),
                                           backgroundColor: Colors.red,
                                         ),
                                       );
