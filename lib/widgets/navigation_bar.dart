@@ -48,7 +48,9 @@ class BottomNavBar extends ConsumerWidget {
             ],
           ),
           child: GlassBox(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+            // Слегка уменьшили горизонтальный паддинг контейнера,
+            // чтобы освободить место для активных элементов с текстом
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
             opacity: isDark ? 0.35 : 0.75,
             blur: 20,
             borderRadius: BorderRadius.circular(32),
@@ -60,45 +62,52 @@ class BottomNavBar extends ConsumerWidget {
               width: 1.5,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: items.asMap().entries.map((entry) {
                 final index = entry.key;
                 final item = entry.value;
                 final isSelected = currentIndex == index;
 
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => onTap(index),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeOutCubic,
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: isSelected ? blueDim : Colors.transparent,
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          isSelected ? item.activeIcon : item.icon,
-                          size: 24,
-                          color: isSelected
-                              ? AppColors.primaryBlue
-                              : (isDark ? Colors.white54 : Colors.black38),
-                        ),
-                        if (isSelected && item.label != null) ...[
-                          const SizedBox(width: 8),
-                          Text(
-                            item.label!,
-                            style: ThemeTextStyles.caption(isDark: isDark)
-                                .copyWith(
-                                  color: AppColors.primaryBlue,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                return Expanded(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => onTap(index),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeOutCubic,
+                      // Центрируем содержимое и делаем вертикальные отступы комфортными
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: isSelected ? blueDim : Colors.transparent,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            isSelected ? item.activeIcon : item.icon,
+                            size: 24,
+                            color: isSelected
+                                ? AppColors.primaryBlue
+                                : (isDark ? Colors.white54 : Colors.black38),
                           ),
+                          if (isSelected && item.label != null) ...[
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                item.label!,
+                                overflow: TextOverflow.ellipsis,
+                                style: ThemeTextStyles.caption(isDark: isDark)
+                                    .copyWith(
+                                      color: AppColors.primaryBlue,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
                 );
