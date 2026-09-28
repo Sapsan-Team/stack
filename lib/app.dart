@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo/feature/locale/data/repository/locale_provider.dart';
-import 'package:todo/feature/theme/theme_provider.dart';
+import 'package:todo/features/locale/presentation/providers/locale_provider.dart';
+import 'package:todo/features/theme/presentation/providers/theme_provider.dart';
 import 'package:todo/core/router/router.dart';
 import 'package:todo/core/theme/colors.dart';
 import 'package:todo/l10n/app_localizations.dart';

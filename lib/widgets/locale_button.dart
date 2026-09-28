@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo/feature/locale/data/repository/locale_provider.dart';
+import 'package:todo/features/locale/presentation/providers/locale_provider.dart';
 
 class LocaleButton extends ConsumerWidget {
   const LocaleButton({super.key, this.padding = 8});

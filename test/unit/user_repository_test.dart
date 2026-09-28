@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo/core/error/failure.dart';
-import 'package:todo/feature/users/data/models/auth_response_dto.dart';
-import 'package:todo/feature/users/data/models/user_dto.dart';
-import 'package:todo/feature/users/data/repositories/user_repositories_impl.dart';
-import 'package:todo/feature/users/domain/entities/repositories/user_remote.dart';
+import 'package:todo/features/auth/data/datasources/remote/user_remote_data_source.dart';
+import 'package:todo/features/auth/data/models/auth_response_dto.dart';
+import 'package:todo/features/auth/data/models/user_dto.dart';
+import 'package:todo/features/auth/data/repositories/user_repository_impl.dart';
 
 class MockSuccessRemoteDataSource implements UserRemoteDataSource {
   @override

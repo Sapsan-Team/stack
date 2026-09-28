@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo/feature/theme/theme_provider.dart';
+import 'package:todo/features/theme/presentation/providers/theme_provider.dart';
 
 class ThemeButton extends ConsumerWidget {
   const ThemeButton({super.key, this.padding = 8});
