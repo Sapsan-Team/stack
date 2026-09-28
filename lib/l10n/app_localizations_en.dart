@@ -22,4 +22,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authScreenPasswordLabel => 'Password';
+
+  @override
+  String get authSuccessMessage => 'Successfully signed in!';
 }

@@ -3,5 +3,6 @@
     "loginButton": "Авторизоваться",
     "signupButton": "Зарегистрироваться",
     "authScreenPhoneLabel": "Номер телефона",
-    "authScreenPasswordLabel": "Пароль"
+    "authScreenPasswordLabel": "Пароль",
+    "authSuccessMessage": "Авторизация прошла успешно!"
 }

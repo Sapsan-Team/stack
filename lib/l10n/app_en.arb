@@ -3,5 +3,6 @@
     "loginButton": "Login",
     "signupButton": "Sign up",
     "authScreenPhoneLabel": "Phone number",
-    "authScreenPasswordLabel": "Password"
+    "authScreenPasswordLabel": "Password",
+    "authSuccessMessage": "Successfully signed in!"
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/feature/locale/data/repository/locale_provider.dart';
@@ -32,14 +31,9 @@ class App extends ConsumerWidget {
       ),
       themeMode: themeMode,
       routerConfig: router,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-        DefaultCupertinoLocalizations.delegate,
-      ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       locale: ref.watch(localeProvider),
-      supportedLocales: const [Locale('en', 'US'), Locale('ru', 'RU')],
       title: 'TODO',
     );
   }

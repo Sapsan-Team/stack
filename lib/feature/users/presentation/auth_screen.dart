@@ -11,10 +11,13 @@ class AuthScreen extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final phoneController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final obscurePassword = useState(true);
+    final isLoading = useState(false);
+
     return Scaffold(
       body: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 400),
+          constraints: const BoxConstraints(maxWidth: 400),
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -35,6 +38,7 @@ class AuthScreen extends HookConsumerWidget {
                 ),
                 TextField(
                   controller: phoneController,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     label: Text(
                       l10n.authScreenPhoneLabel,
@@ -44,10 +48,22 @@ class AuthScreen extends HookConsumerWidget {
                 ),
                 TextField(
                   controller: passwordController,
+                  obscureText: obscurePassword.value,
                   decoration: InputDecoration(
                     label: Text(
                       l10n.authScreenPasswordLabel,
                       style: const TextStyle(fontSize: 12),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        obscurePassword.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        obscurePassword.value = !obscurePassword.value;
+                      },
                     ),
                   ),
                 ),
@@ -56,26 +72,53 @@ class AuthScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ElevatedButton(
-                      onPressed: () async {
-                        final phone = phoneController.text;
-                        final password = passwordController.text;
-                        try {
-                          await ref
-                              .read(authNotifierProvider.notifier)
-                              .login(phone, password);
+                      onPressed: isLoading.value
+                          ? null
+                          : () async {
+                              final phone = phoneController.text.trim();
+                              final password = passwordController.text;
 
-                          if (context.mounted) {
-                            // context.go('/home');
-                          }
-                        } catch (error) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(
-                              context,
-                            ).showSnackBar(SnackBar(content: Text('$error')));
-                          }
-                        }
-                      },
-                      child: Text(l10n.loginButton),
+                              if (phone.isEmpty || password.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Заполните все поля'),
+                                  ),
+                                );
+                                return;
+                              }
+
+                              isLoading.value = true;
+                              try {
+                                await ref
+                                    .read(authNotifierProvider.notifier)
+                                    .login(phone, password);
+
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(l10n.authSuccessMessage),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                  // context.go('/home');
+                                }
+                              } catch (error) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('$error')),
+                                  );
+                                }
+                              } finally {
+                                isLoading.value = false;
+                              }
+                            },
+                      child: isLoading.value
+                          ? const SizedBox(
+                              height: 18,
+                              width: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : Text(l10n.loginButton),
                     ),
                     ElevatedButton(
                       onPressed: () {

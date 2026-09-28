@@ -11,7 +11,7 @@ sealed class User with _$User {
     String? username,
     String? displayName,
     String? bio,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _User;
 }

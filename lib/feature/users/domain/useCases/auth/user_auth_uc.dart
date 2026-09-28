@@ -1,8 +1,8 @@
-import 'package:todo/feature/users/data/repositories/user_repositories_impl.dart';
+import 'package:todo/feature/users/domain/entities/repositories/user_repository.dart';
 import 'package:todo/feature/users/domain/entities/user.dart';
 
 class LoginUserUseCase {
-  final UserRepositoryImpl userRepository;
+  final UserRepository userRepository;
 
   LoginUserUseCase({required this.userRepository});
 
@@ -10,3 +10,4 @@ class LoginUserUseCase {
     return await userRepository.getUser(phoneNumber, password);
   }
 }
+

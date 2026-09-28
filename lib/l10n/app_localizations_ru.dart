@@ -22,4 +22,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get authScreenPasswordLabel => 'Пароль';
+
+  @override
+  String get authSuccessMessage => 'Авторизация прошла успешно!';
 }
