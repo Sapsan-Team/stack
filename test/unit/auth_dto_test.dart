@@ -4,30 +4,32 @@ import 'package:todo/features/auth/data/models/user_dto.dart';
 
 void main() {
   group('AuthResponseDto', () {
-    test('successfully parses JSON matching Go backend response', () {
+    test('parses the token response returned by the ASP.NET API', () {
       final json = {
-        'token': 'jwt_token_sample',
-        'user': {
-          'id': 'u123',
-          'phone_number': '+79991234567',
-          'username': 'john_doe',
-          'display_name': 'John Doe',
-        },
+        'accessToken': 'jwt_token_sample',
+        'tokenType': 'Bearer',
+        'expiresAt': '2026-10-01T12:00:00+00:00',
       };
 
       final authResponse = AuthResponseDto.fromJson(json);
 
-      expect(authResponse.token, 'jwt_token_sample');
-      expect(authResponse.user.id, 'u123');
-      expect(authResponse.user.phoneNumber, '+79991234567');
-      expect(authResponse.user.username, 'john_doe');
-      expect(authResponse.user.displayName, 'John Doe');
+      expect(authResponse.accessToken, 'jwt_token_sample');
+      expect(authResponse.tokenType, 'Bearer');
+      expect(authResponse.expiresAt, DateTime.parse('2026-10-01T12:00:00+00:00'));
+    });
 
-      final user = authResponse.user.toDomain();
+    test('parses the current-user response returned by /api/auth/me', () {
+      final user = UserDto.fromJson({
+        'id': 'u123',
+        'phoneNumber': '+79991234567',
+        'username': 'alice',
+        'displayName': 'Alice Smith',
+      }).toDomain();
+
       expect(user.id, 'u123');
       expect(user.phoneNumber, '+79991234567');
-      expect(user.username, 'john_doe');
-      expect(user.displayName, 'John Doe');
+      expect(user.username, 'alice');
+      expect(user.displayName, 'Alice Smith');
     });
   });
 }

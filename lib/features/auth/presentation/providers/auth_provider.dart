@@ -1,12 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/core/providers/dio_provider.dart';
-import 'package:todo/core/providers/shared_preferences_provider.dart';
 import 'package:todo/features/auth/data/datasources/remote/user_remote_data_source.dart';
 import 'package:todo/features/auth/data/datasources/remote/user_remote_data_source_impl.dart';
 import 'package:todo/features/auth/data/repositories/user_repository_impl.dart';
 import 'package:todo/features/auth/domain/repositories/user_repository.dart';
 import 'package:todo/features/auth/domain/use_cases/login_user_use_case.dart';
+import 'package:todo/features/auth/domain/use_cases/logout_use_case.dart';
 import 'package:todo/features/auth/domain/use_cases/register_user_use_case.dart';
+import 'package:todo/features/auth/domain/use_cases/restore_session_use_case.dart';
+import 'package:todo/features/auth/presentation/providers/auth_token_storage_provider.dart';
 
 // 1. Remote Data Source
 final userRemoteDataSourceProvider = Provider<UserRemoteDataSource>((ref) {
@@ -17,7 +19,7 @@ final userRemoteDataSourceProvider = Provider<UserRemoteDataSource>((ref) {
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   return UserRepositoryImpl(
     remote: ref.watch(userRemoteDataSourceProvider),
-    prefs: ref.watch(sharedPreferencesProvider),
+    tokenStorage: ref.watch(authTokenStorageProvider),
   );
 });
 
@@ -28,4 +30,14 @@ final loginUseCaseProvider = Provider<LoginUserUseCase>((ref) {
 
 final registerUseCaseProvider = Provider<RegisterUserUseCase>((ref) {
   return RegisterUserUseCase(userRepository: ref.watch(userRepositoryProvider));
+});
+
+final restoreSessionUseCaseProvider = Provider<RestoreSessionUseCase>((ref) {
+  return RestoreSessionUseCase(
+    userRepository: ref.watch(userRepositoryProvider),
+  );
+});
+
+final logoutUseCaseProvider = Provider<LogoutUseCase>((ref) {
+  return LogoutUseCase(userRepository: ref.watch(userRepositoryProvider));
 });

@@ -10,7 +10,7 @@ class EmptyState extends StatelessWidget {
     super.key,
     this.title,
     this.subtitle,
-    this.icon = Icons.pets_outlined,
+    this.icon = Icons.inbox_outlined,
   });
 
   @override
@@ -18,8 +18,9 @@ class EmptyState extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final l10n = AppLocalizations.of(context);
 
-    final displayTitle = title ?? l10n?.emptyStateTitle ?? 'Здесь пока ничего нет';
-    final displaySubtitle = subtitle ?? l10n?.emptyStateSubtitle ?? 'Список задач и питомцев пуст';
+    final displayTitle =
+        title ?? l10n?.emptyStateTitle ?? 'Здесь пока ничего нет';
+    final displaySubtitle = subtitle ?? l10n?.emptyStateSubtitle ?? '';
 
     return Center(
       child: Padding(
@@ -28,45 +29,39 @@ class EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 120,
-              height: 120,
+              width: 88,
+              height: 88,
               decoration: BoxDecoration(
                 color: colorScheme.primaryContainer.withValues(alpha: 0.5),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 icon,
-                size: 56,
-                color: colorScheme.primary.withValues(alpha: 0.7),
+                size: 40,
+                color: colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             Text(
               displayTitle,
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
                 color: colorScheme.onSurface,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
-            Text(
-              ':3',
-              style: TextStyle(
-                fontSize: 28,
-                color: colorScheme.primary.withValues(alpha: 0.6),
+            if (displaySubtitle.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                displaySubtitle,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              displaySubtitle,
-              style: TextStyle(
-                fontSize: 14,
-                color: colorScheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            ],
           ],
         ),
       ),

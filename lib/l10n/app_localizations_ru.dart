@@ -9,13 +9,19 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get authScreenTitle => 'Добро пожаловать в приют для животных';
+  String get authScreenTitle => 'С возвращением';
 
   @override
-  String get registerScreenTitle => 'Регистрация в приюте';
+  String get authScreenSubtitle => 'Войдите, чтобы продолжить';
 
   @override
-  String get loginButton => 'Авторизоваться';
+  String get registerScreenTitle => 'Создать аккаунт';
+
+  @override
+  String get registerScreenSubtitle => 'Заполните данные, чтобы начать';
+
+  @override
+  String get loginButton => 'Войти';
 
   @override
   String get signupButton => 'Зарегистрироваться';
@@ -64,8 +70,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get fieldRequiredError => 'Обязательное поле';
 
   @override
-  String get invalidPhoneFormatError =>
-      'Неверный формат (+77011234567, от 8 до 15 цифр)';
+  String get invalidPhoneFormatError => 'Введите корректный номер';
 
   @override
   String get invalidUsernameFormatError =>
@@ -90,16 +95,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get emptyStateTitle => 'Здесь пока ничего нет';
 
   @override
-  String get emptyStateSubtitle => 'Список задач и питомцев пуст';
+  String get emptyStateSubtitle => 'Здесь пока ничего нет. Загляните позже.';
 
   @override
   String get navHome => 'Главная';
 
   @override
-  String get navPets => 'Питомцы';
+  String get navCalls => 'Звонки';
 
   @override
-  String get navTasks => 'Задачи';
+  String get navMusic => 'Музыка';
 
   @override
   String get navProfile => 'Профиль';
@@ -108,11 +113,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home => 'Главная';
 
   @override
-  String get materials => 'Материалы';
+  String get switchToLightTheme => 'Включить светлую тему';
 
   @override
-  String get my_vocabulary => 'Мой словарь';
+  String get switchToDarkTheme => 'Включить тёмную тему';
 
   @override
-  String get profile => 'Профиль';
+  String get switchLanguage => 'Сменить язык';
+
+  @override
+  String get showPassword => 'Показать пароль';
+
+  @override
+  String get hidePassword => 'Скрыть пароль';
+
+  @override
+  String get sessionVerificationError =>
+      'Не удалось проверить сессию. Проверьте подключение и повторите попытку.';
+
+  @override
+  String get retryButton => 'Повторить';
 }

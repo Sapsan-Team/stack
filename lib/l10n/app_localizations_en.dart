@@ -9,10 +9,16 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get authScreenTitle => 'Welcome to the animal shelter';
+  String get authScreenTitle => 'Welcome back';
 
   @override
-  String get registerScreenTitle => 'Create shelter account';
+  String get authScreenSubtitle => 'Sign in to continue';
+
+  @override
+  String get registerScreenTitle => 'Create your account';
+
+  @override
+  String get registerScreenSubtitle => 'Enter your details to get started';
 
   @override
   String get loginButton => 'Sign In';
@@ -63,8 +69,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fieldRequiredError => 'This field is required';
 
   @override
-  String get invalidPhoneFormatError =>
-      'Invalid format (+77011234567, 8 to 15 digits)';
+  String get invalidPhoneFormatError => 'Enter a correct phone number';
 
   @override
   String get invalidUsernameFormatError =>
@@ -89,16 +94,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyStateTitle => 'Nothing here yet';
 
   @override
-  String get emptyStateSubtitle => 'Your list of tasks and pets is empty';
+  String get emptyStateSubtitle => 'Nothing here yet. Check back later.';
 
   @override
   String get navHome => 'Home';
 
   @override
-  String get navPets => 'Pets';
+  String get navCalls => 'Calls';
 
   @override
-  String get navTasks => 'Tasks';
+  String get navMusic => 'Music';
 
   @override
   String get navProfile => 'Profile';
@@ -107,11 +112,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home => 'Home';
 
   @override
-  String get materials => 'Materials';
+  String get switchToLightTheme => 'Switch to light theme';
 
   @override
-  String get my_vocabulary => 'My vocabulary';
+  String get switchToDarkTheme => 'Switch to dark theme';
 
   @override
-  String get profile => 'Profile';
+  String get switchLanguage => 'Change language';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
+  String get sessionVerificationError =>
+      'Unable to verify your session. Check your connection and retry.';
+
+  @override
+  String get retryButton => 'Retry';
 }

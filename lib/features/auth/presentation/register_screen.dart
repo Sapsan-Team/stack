@@ -7,8 +7,8 @@ import 'package:todo/core/router/routes.dart';
 import 'package:todo/core/utils/auth_validators.dart';
 import 'package:todo/features/auth/presentation/providers/auth_notifier_provider.dart';
 import 'package:todo/l10n/app_localizations.dart';
-import 'package:todo/widgets/locale_button.dart';
-import 'package:todo/widgets/theme_button.dart';
+import 'package:todo/widgets/app_page_scaffold.dart';
+import 'package:todo/widgets/auth_form_components.dart';
 
 class RegisterScreen extends HookConsumerWidget {
   const RegisterScreen({super.key});
@@ -24,138 +24,75 @@ class RegisterScreen extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
 
-    final obscurePassword = useState(true);
-    final obscureConfirmPassword = useState(true);
     final isLoading = useState(false);
+    final hasSubmitted = useState(false);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          l10n.registerScreenTitle,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        actions: const [
-          LocaleButton(),
-          ThemeButton(),
-        ],
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 420),
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Theme.of(context).cardColor.withValues(alpha: 0.15),
-                border: Border.all(
-                  color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
-                ),
-              ),
-              child: Form(
+    return AppPageScaffold(
+      title: l10n.registerScreenTitle,
+      body: AuthFormCard(
+        child: Form(
                 key: formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: hasSubmitted.value
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      l10n.registerScreenTitle,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    AuthFormHeader(
+                          title: l10n.registerScreenTitle,
+                          subtitle: l10n.registerScreenSubtitle,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
 
                     // Phone Number
-                    TextFormField(
+                    AuthTextField(
                       controller: phoneController,
+                      label: l10n.authScreenPhoneLabel,
+                      icon: Icons.phone_outlined,
                       keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        labelText: l10n.authScreenPhoneLabel,
-                        hintText: '+77011234567',
-                        prefixIcon: const Icon(Icons.phone_outlined, size: 20),
-                        border: const OutlineInputBorder(),
-                      ),
+                      textInputAction: TextInputAction.next,
                       validator: (v) => AuthValidators.validatePhone(v, l10n),
                     ),
                     const SizedBox(height: 16),
 
                     // Username
-                    TextFormField(
+                    AuthTextField(
                       controller: usernameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.usernameLabel,
-                        hintText: 'john_doe',
-                        prefixIcon: const Icon(Icons.alternate_email, size: 20),
-                        border: const OutlineInputBorder(),
-                      ),
+                      label: l10n.usernameLabel,
+                      icon: Icons.alternate_email,
+                      textInputAction: TextInputAction.next,
+                      hintText: 'john_doe',
                       validator: (v) => AuthValidators.validateUsername(v, l10n),
                     ),
                     const SizedBox(height: 16),
 
                     // Display Name
-                    TextFormField(
+                    AuthTextField(
                       controller: displayNameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.displayNameLabel,
-                        hintText: 'John Doe',
-                        prefixIcon: const Icon(Icons.person_outline, size: 20),
-                        border: const OutlineInputBorder(),
-                      ),
+                      label: l10n.displayNameLabel,
+                      icon: Icons.person_outline,
+                      textInputAction: TextInputAction.next,
+                      hintText: 'John Doe',
                       validator: (v) =>
                           AuthValidators.validateDisplayName(v, l10n),
                     ),
                     const SizedBox(height: 16),
 
                     // Password
-                    TextFormField(
-                      controller: passwordController,
-                      obscureText: obscurePassword.value,
-                      decoration: InputDecoration(
-                        labelText: l10n.authScreenPasswordLabel,
-                        prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            obscurePassword.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            obscurePassword.value = !obscurePassword.value;
-                          },
-                        ),
-                      ),
-                      validator: (v) => AuthValidators.validatePassword(v, l10n),
+                    AuthPasswordField(
+                        controller: passwordController,
+                        label: l10n.authScreenPasswordLabel,
+                        textInputAction: TextInputAction.next,
+                        validator: (v) => AuthValidators.validatePassword(v, l10n),
                     ),
                     const SizedBox(height: 16),
 
                     // Confirm Password
-                    TextFormField(
-                      controller: confirmPasswordController,
-                      obscureText: obscureConfirmPassword.value,
-                      decoration: InputDecoration(
-                        labelText: l10n.confirmPasswordLabel,
-                        prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            obscureConfirmPassword.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            obscureConfirmPassword.value =
-                                !obscureConfirmPassword.value;
-                          },
-                        ),
-                      ),
+                    AuthPasswordField(
+                        controller: confirmPasswordController,
+                        label: l10n.confirmPasswordLabel,
+                        textInputAction: TextInputAction.done,
                       validator: (v) => AuthValidators.validateConfirmPassword(
                         v,
                         passwordController.text,
@@ -165,17 +102,19 @@ class RegisterScreen extends HookConsumerWidget {
                     const SizedBox(height: 24),
 
                     // Submit Button
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: isLoading.value
-                          ? null
-                          : () async {
+                    AuthSubmitButton(
+                      label: l10n.signupButton,
+                      isLoading: isLoading.value,
+                      onPressed: isLoading.value ? null : () async {
+                              hasSubmitted.value = true;
                               if (!(formKey.currentState?.validate() ?? false)) {
+                                return;
+                              }
+                              final phoneNumber =
+                                  AuthValidators.normalizePhoneNumber(
+                                    phoneController.text,
+                                  );
+                              if (phoneNumber == null) {
                                 return;
                               }
 
@@ -184,7 +123,7 @@ class RegisterScreen extends HookConsumerWidget {
                                 final result = await ref
                                     .read(authNotifierProvider.notifier)
                                     .register(
-                                      phone: phoneController.text.trim(),
+                                      phone: phoneNumber,
                                       username: usernameController.text.trim(),
                                       displayName:
                                           displayNameController.text.trim(),
@@ -216,7 +155,6 @@ class RegisterScreen extends HookConsumerWidget {
                                       ).showSnackBar(
                                         SnackBar(
                                           content: Text(errorMessage),
-                                          backgroundColor: Colors.red,
                                         ),
                                       );
                                     },
@@ -228,7 +166,6 @@ class RegisterScreen extends HookConsumerWidget {
                                           content: Text(
                                             l10n.registerSuccessMessage,
                                           ),
-                                          backgroundColor: Colors.green,
                                         ),
                                       );
                                       context.go(Routes.home);
@@ -239,19 +176,6 @@ class RegisterScreen extends HookConsumerWidget {
                                 isLoading.value = false;
                               }
                             },
-                      child: isLoading.value
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Text(
-                              l10n.signupButton,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
                     ),
                     const SizedBox(height: 12),
 
@@ -266,13 +190,9 @@ class RegisterScreen extends HookConsumerWidget {
                       },
                       child: Text(l10n.alreadyHaveAccount),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          ],
         ),
-      ),
+      ),)
     );
   }
 }

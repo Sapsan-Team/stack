@@ -3,6 +3,8 @@ import 'package:todo/core/error/failure.dart';
 import 'package:todo/features/auth/domain/entities/user.dart';
 
 abstract interface class UserRepository {
+  Future<Either<Failure, User?>> restoreSession();
+
   Future<Either<Failure, User>> getUser(String phoneNumber, String password);
 
   Future<Either<Failure, User>> register({
@@ -11,5 +13,6 @@ abstract interface class UserRepository {
     required String displayName,
     required String password,
   });
-}
 
+  Future<void> logout();
+}

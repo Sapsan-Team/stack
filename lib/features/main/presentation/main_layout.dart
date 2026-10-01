@@ -9,11 +9,17 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       body: child,
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [bnb],
+        children: [
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: bnb,
+            ),
+          ),
+        ],
       ),
     );
   }

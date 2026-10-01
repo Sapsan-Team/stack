@@ -11,12 +11,21 @@ void main() {
   });
 
   group('AuthValidators', () {
-    test('validatePhone validates E.164 phone numbers', () {
+    test('validatePhone accepts international and local phone formats', () {
       expect(AuthValidators.validatePhone('', l10n), l10n.fieldRequiredError);
       expect(AuthValidators.validatePhone('12345', l10n), l10n.invalidPhoneFormatError);
-      expect(AuthValidators.validatePhone('89991234567', l10n), l10n.invalidPhoneFormatError);
+      expect(AuthValidators.validatePhone('87775609206', l10n), isNull);
+      expect(AuthValidators.validatePhone('8 (777) 560-92-06', l10n), isNull);
       expect(AuthValidators.validatePhone('+77011234567', l10n), isNull);
       expect(AuthValidators.validatePhone('+12345678901', l10n), isNull);
+      expect(
+        AuthValidators.normalizePhoneNumber('87775609206'),
+        '+77775609206',
+      );
+      expect(
+        AuthValidators.normalizePhoneNumber('+7 (777) 560-92-06'),
+        '+77775609206',
+      );
     });
 
     test('validateUsername validates 3-30 alphanumeric characters and underscore', () {

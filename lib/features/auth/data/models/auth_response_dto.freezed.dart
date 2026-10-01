@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthResponseDto {
 
- String get token; UserDto get user;
+ String get accessToken; String get tokenType; DateTime get expiresAt;
 /// Create a copy of AuthResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $AuthResponseDtoCopyWith<AuthResponseDto> get copyWith => _$AuthResponseDtoCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as AuthResponseDto;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResponseDto&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.user, _this.user) || other.user == _this.user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResponseDto&&(identical(other.accessToken, _this.accessToken) || other.accessToken == _this.accessToken)&&(identical(other.tokenType, _this.tokenType) || other.tokenType == _this.tokenType)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as AuthResponseDto;
-  return Object.hash(runtimeType,_this.token,_this.user);
+  return Object.hash(runtimeType,_this.accessToken,_this.tokenType,_this.expiresAt);
 }
 
 @override
 String toString() {
   final _this = this as AuthResponseDto;
-  return 'AuthResponseDto(token: ${_this.token}, user: ${_this.user})';
+  return 'AuthResponseDto(accessToken: ${_this.accessToken}, tokenType: ${_this.tokenType}, expiresAt: ${_this.expiresAt})';
 }
 
 
@@ -54,11 +54,11 @@ abstract mixin class $AuthResponseDtoCopyWith<$Res>  {
   factory $AuthResponseDtoCopyWith(AuthResponseDto value, $Res Function(AuthResponseDto) _then) = _$AuthResponseDtoCopyWithImpl;
 @useResult
 $Res call({
- String token, UserDto user
+ String accessToken, String tokenType, DateTime expiresAt
 });
 
 
-$UserDtoCopyWith<$Res> get user;
+
 
 }
 /// @nodoc
@@ -71,23 +71,15 @@ class _$AuthResponseDtoCopyWithImpl<$Res>
 
 /// Create a copy of AuthResponseDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? token = null,Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? tokenType = null,Object? expiresAt = null,}) {
   return _then(AuthResponseDto(
-token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as String,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserDto,
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
+as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
-/// Create a copy of AuthResponseDto
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserDtoCopyWith<$Res> get user {
-  
-  return $UserDtoCopyWith<$Res>(_self.user, (value) {
-    return _then(_self.copyWith(user: value));
-  });
-}
+
 }
 
 
@@ -166,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String token,  UserDto user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String tokenType,  DateTime expiresAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthResponseDto() when $default != null:
-return $default(_that.token,_that.user);case _:
+return $default(_that.accessToken,_that.tokenType,_that.expiresAt);case _:
   return orElse();
 
 }
@@ -187,10 +179,10 @@ return $default(_that.token,_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String token,  UserDto user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String tokenType,  DateTime expiresAt)  $default,) {final _that = this;
 switch (_that) {
 case _AuthResponseDto():
-return $default(_that.token,_that.user);}
+return $default(_that.accessToken,_that.tokenType,_that.expiresAt);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -204,10 +196,10 @@ return $default(_that.token,_that.user);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String token,  UserDto user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String tokenType,  DateTime expiresAt)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthResponseDto() when $default != null:
-return $default(_that.token,_that.user);case _:
+return $default(_that.accessToken,_that.tokenType,_that.expiresAt);case _:
   return null;
 
 }
@@ -219,11 +211,12 @@ return $default(_that.token,_that.user);case _:
 @JsonSerializable()
 
 class _AuthResponseDto implements AuthResponseDto {
-  const _AuthResponseDto({required this.token, required this.user});
+  const _AuthResponseDto({required this.accessToken, required this.tokenType, required this.expiresAt});
   factory _AuthResponseDto.fromJson(Map<String, dynamic> json) => _$AuthResponseDtoFromJson(json);
 
-@override final  String token;
-@override final  UserDto user;
+@override final  String accessToken;
+@override final  String tokenType;
+@override final  DateTime expiresAt;
 
 /// Create a copy of AuthResponseDto
 /// with the given fields replaced by the non-null parameter values.
@@ -238,18 +231,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthResponseDto&&(identical(other.token, token) || other.token == token)&&(identical(other.user, user) || other.user == user));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthResponseDto&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,token,user);
+    return Object.hash(runtimeType,accessToken,tokenType,expiresAt);
 }
 
 @override
 String toString() {
-    return 'AuthResponseDto(token: $token, user: $user)';
+    return 'AuthResponseDto(accessToken: $accessToken, tokenType: $tokenType, expiresAt: $expiresAt)';
 }
 
 
@@ -260,11 +253,11 @@ abstract mixin class _$AuthResponseDtoCopyWith<$Res> implements $AuthResponseDto
   factory _$AuthResponseDtoCopyWith(_AuthResponseDto value, $Res Function(_AuthResponseDto) _then) = __$AuthResponseDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String token, UserDto user
+ String accessToken, String tokenType, DateTime expiresAt
 });
 
 
-@override $UserDtoCopyWith<$Res> get user;
+
 
 }
 /// @nodoc
@@ -277,24 +270,16 @@ class __$AuthResponseDtoCopyWithImpl<$Res>
 
 /// Create a copy of AuthResponseDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? token = null,Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? tokenType = null,Object? expiresAt = null,}) {
   return _then(_AuthResponseDto(
-token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as String,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserDto,
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
+as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 
-/// Create a copy of AuthResponseDto
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserDtoCopyWith<$Res> get user {
-  
-  return $UserDtoCopyWith<$Res>(_self.user, (value) {
-    return _then(_self.copyWith(user: value));
-  });
-}
+
 }
 
 // dart format on

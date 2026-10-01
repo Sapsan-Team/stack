@@ -11,7 +11,9 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
   @override
   ThemeMode get themeMode =>
-      ThemeMode.values[prefs.getInt(_modeKey) ?? ThemeMode.system.index];
+      prefs.getInt(_modeKey) == ThemeMode.dark.index
+          ? ThemeMode.dark
+          : ThemeMode.light;
 
   @override
   Future<void> setThemeMode(ThemeMode mode) async {

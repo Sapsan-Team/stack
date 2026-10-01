@@ -7,8 +7,8 @@ import 'package:todo/core/router/routes.dart';
 import 'package:todo/core/utils/auth_validators.dart';
 import 'package:todo/features/auth/presentation/providers/auth_notifier_provider.dart';
 import 'package:todo/l10n/app_localizations.dart';
-import 'package:todo/widgets/locale_button.dart';
-import 'package:todo/widgets/theme_button.dart';
+import 'package:todo/widgets/app_page_scaffold.dart';
+import 'package:todo/widgets/auth_form_components.dart';
 
 class AuthScreen extends HookConsumerWidget {
   const AuthScreen({super.key});
@@ -19,91 +19,64 @@ class AuthScreen extends HookConsumerWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final phoneController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final obscurePassword = useState(true);
     final isLoading = useState(false);
+    final hasSubmitted = useState(false);
 
-    return Scaffold(
-      appBar: AppBar(actions: const [LocaleButton(), ThemeButton()]),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 420),
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Theme.of(context).cardColor.withValues(alpha: 0.15),
-              ),
-              child: Form(
+    return AppPageScaffold(
+      title: '',
+      body: AuthFormCard(
+        child: Form(
                 key: formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: hasSubmitted.value
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      l10n.authScreenTitle,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    AuthFormHeader(
+                          title: l10n.authScreenTitle,
+                          subtitle: l10n.authScreenSubtitle,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
 
                     // Phone field
-                    TextFormField(
+                    AuthTextField(
                       controller: phoneController,
+                      label: l10n.authScreenPhoneLabel,
+                      icon: Icons.phone_outlined,
                       keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        labelText: l10n.authScreenPhoneLabel,
-                        hintText: '+77011234567',
-                        prefixIcon: const Icon(Icons.phone_outlined, size: 20),
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: (v) => AuthValidators.validatePhone(v, l10n),
+                      textInputAction: TextInputAction.next,
+                      validator: (value) =>
+                          AuthValidators.validatePhone(value, l10n),
                     ),
                     const SizedBox(height: 16),
 
                     // Password field
-                    TextFormField(
-                      controller: passwordController,
-                      obscureText: obscurePassword.value,
-                      decoration: InputDecoration(
-                        labelText: l10n.authScreenPasswordLabel,
-                        prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            obscurePassword.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            obscurePassword.value = !obscurePassword.value;
-                          },
-                        ),
-                      ),
-                      validator: (v) =>
-                          AuthValidators.validatePassword(v, l10n),
+                    AuthPasswordField(
+                        controller: passwordController,
+                        label: l10n.authScreenPasswordLabel,
+                        textInputAction: TextInputAction.done,
+                        validator: (v) =>
+                            AuthValidators.validatePassword(v, l10n),
                     ),
                     const SizedBox(height: 24),
 
                     // Login button
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: isLoading.value
-                          ? null
-                          : () async {
+                    AuthSubmitButton(
+                      label: l10n.loginButton,
+                      isLoading: isLoading.value,
+                      onPressed: isLoading.value ? null : () async {
+                              hasSubmitted.value = true;
                               if (!(formKey.currentState?.validate() ??
                                   false)) {
+                                return;
+                              }
+                              final phoneNumber =
+                                  AuthValidators.normalizePhoneNumber(
+                                    phoneController.text,
+                                  );
+                              if (phoneNumber == null) {
                                 return;
                               }
 
@@ -111,10 +84,7 @@ class AuthScreen extends HookConsumerWidget {
                               try {
                                 final result = await ref
                                     .read(authNotifierProvider.notifier)
-                                    .login(
-                                      phoneController.text.trim(),
-                                      passwordController.text,
-                                    );
+                                    .login(phoneNumber, passwordController.text);
 
                                 if (context.mounted) {
                                   result.fold(
@@ -141,7 +111,6 @@ class AuthScreen extends HookConsumerWidget {
                                       ).showSnackBar(
                                         SnackBar(
                                           content: Text(errorMessage),
-                                          backgroundColor: Colors.red,
                                         ),
                                       );
                                     },
@@ -153,7 +122,6 @@ class AuthScreen extends HookConsumerWidget {
                                           content: Text(
                                             l10n.authSuccessMessage,
                                           ),
-                                          backgroundColor: Colors.green,
                                         ),
                                       );
                                       context.go(Routes.home);
@@ -164,45 +132,21 @@ class AuthScreen extends HookConsumerWidget {
                                 isLoading.value = false;
                               }
                             },
-                      child: isLoading.value
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Text(
-                              l10n.loginButton,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
                     ),
                     const SizedBox(height: 12),
 
                     // Signup navigation button
                     OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
                       onPressed: () {
                         context.push(Routes.register);
                       },
                       child: Text(
                         l10n.dontHaveAccount,
-                        style: const TextStyle(fontSize: 14),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          ],
         ),
-      ),
+      ),)
     );
   }
 }

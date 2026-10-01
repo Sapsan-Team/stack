@@ -9,17 +9,17 @@ sealed class UserDto with _$UserDto {
   const factory UserDto({
     required String id,
 
-    @JsonKey(name: 'phone_number') required String phoneNumber,
+    required String phoneNumber,
 
     String? username,
 
-    @JsonKey(name: 'display_name') String? displayName,
+    String? displayName,
 
     String? bio,
 
-    @JsonKey(name: 'created_at') DateTime? createdAt,
+    DateTime? createdAt,
 
-    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    DateTime? updatedAt,
   }) = _UserDto;
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>

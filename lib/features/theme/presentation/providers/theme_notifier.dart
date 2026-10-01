@@ -23,11 +23,9 @@ class ThemeNotifier extends Notifier<ThemeMode> {
   }
 
   Future<void> toggleTheme() async {
-    const modes = [ThemeMode.light, ThemeMode.dark, ThemeMode.system];
-    final currentIndex = modes.indexOf(state);
-    final nextIndex =
-        (currentIndex == -1 ? 0 : currentIndex + 1) % modes.length;
-    await setThemeMode(modes[nextIndex]);
+    await setThemeMode(
+      state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light,
+    );
   }
 }
 

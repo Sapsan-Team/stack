@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/features/locale/presentation/providers/locale_provider.dart';
+import 'package:todo/l10n/app_localizations.dart';
 
 class LocaleButton extends ConsumerWidget {
   const LocaleButton({super.key, this.padding = 8});
@@ -9,12 +10,12 @@ class LocaleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeProvider);
-    final isRu = locale.languageCode == 'ru';
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: EdgeInsets.only(right: padding),
       child: IconButton(
-        tooltip: isRu ? 'Сменить язык' : 'Change language',
+        tooltip: l10n.switchLanguage,
         onPressed: () => ref.read(localeProvider.notifier).switchLocale(),
         icon: Row(
           mainAxisSize: MainAxisSize.min,

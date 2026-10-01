@@ -8,24 +8,24 @@ part of 'user_dto.dart';
 
 _UserDto _$UserDtoFromJson(Map<String, dynamic> json) => _UserDto(
   id: json['id'] as String,
-  phoneNumber: json['phone_number'] as String,
+  phoneNumber: json['phoneNumber'] as String,
   username: json['username'] as String?,
-  displayName: json['display_name'] as String?,
+  displayName: json['displayName'] as String?,
   bio: json['bio'] as String?,
-  createdAt: json['created_at'] == null
+  createdAt: json['createdAt'] == null
       ? null
-      : DateTime.parse(json['created_at'] as String),
-  updatedAt: json['updated_at'] == null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
       ? null
-      : DateTime.parse(json['updated_at'] as String),
+      : DateTime.parse(json['updatedAt'] as String),
 );
 
 Map<String, dynamic> _$UserDtoToJson(_UserDto instance) => <String, dynamic>{
   'id': instance.id,
-  'phone_number': instance.phoneNumber,
+  'phoneNumber': instance.phoneNumber,
   'username': instance.username,
-  'display_name': instance.displayName,
+  'displayName': instance.displayName,
   'bio': instance.bio,
-  'created_at': instance.createdAt?.toIso8601String(),
-  'updated_at': instance.updatedAt?.toIso8601String(),
+  'createdAt': instance.createdAt?.toIso8601String(),
+  'updatedAt': instance.updatedAt?.toIso8601String(),
 };

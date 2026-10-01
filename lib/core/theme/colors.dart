@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const List<Color> seedColors = [
-  Color(0xFF6750A4), // Purple
+  Color(0xFF496A81), // Slate blue
   Color(0xFF1976D2), // Blue
   Color(0xFF388E3C), // Green
   Color(0xFFD32F2F), // Red

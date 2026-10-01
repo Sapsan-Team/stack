@@ -8,9 +8,14 @@ part of 'auth_response_dto.dart';
 
 _AuthResponseDto _$AuthResponseDtoFromJson(Map<String, dynamic> json) =>
     _AuthResponseDto(
-      token: json['token'] as String,
-      user: UserDto.fromJson(json['user'] as Map<String, dynamic>),
+      accessToken: json['accessToken'] as String,
+      tokenType: json['tokenType'] as String,
+      expiresAt: DateTime.parse(json['expiresAt'] as String),
     );
 
 Map<String, dynamic> _$AuthResponseDtoToJson(_AuthResponseDto instance) =>
-    <String, dynamic>{'token': instance.token, 'user': instance.user};
+    <String, dynamic>{
+      'accessToken': instance.accessToken,
+      'tokenType': instance.tokenType,
+      'expiresAt': instance.expiresAt.toIso8601String(),
+    };

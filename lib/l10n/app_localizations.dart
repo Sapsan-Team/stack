@@ -101,14 +101,26 @@ abstract class AppLocalizations {
   /// No description provided for @authScreenTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to the animal shelter'**
+  /// **'Welcome back'**
   String get authScreenTitle;
+
+  /// No description provided for @authScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to continue'**
+  String get authScreenSubtitle;
 
   /// No description provided for @registerScreenTitle.
   ///
   /// In en, this message translates to:
-  /// **'Create shelter account'**
+  /// **'Create your account'**
   String get registerScreenTitle;
+
+  /// No description provided for @registerScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your details to get started'**
+  String get registerScreenSubtitle;
 
   /// No description provided for @loginButton.
   ///
@@ -209,7 +221,7 @@ abstract class AppLocalizations {
   /// No description provided for @invalidPhoneFormatError.
   ///
   /// In en, this message translates to:
-  /// **'Invalid format (+77011234567, 8 to 15 digits)'**
+  /// **'Enter a correct phone number'**
   String get invalidPhoneFormatError;
 
   /// No description provided for @invalidUsernameFormatError.
@@ -257,7 +269,7 @@ abstract class AppLocalizations {
   /// No description provided for @emptyStateSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Your list of tasks and pets is empty'**
+  /// **'Nothing here yet. Check back later.'**
   String get emptyStateSubtitle;
 
   /// No description provided for @navHome.
@@ -266,17 +278,17 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get navHome;
 
-  /// No description provided for @navPets.
+  /// No description provided for @navCalls.
   ///
   /// In en, this message translates to:
-  /// **'Pets'**
-  String get navPets;
+  /// **'Calls'**
+  String get navCalls;
 
-  /// No description provided for @navTasks.
+  /// No description provided for @navMusic.
   ///
   /// In en, this message translates to:
-  /// **'Tasks'**
-  String get navTasks;
+  /// **'Music'**
+  String get navMusic;
 
   /// No description provided for @navProfile.
   ///
@@ -290,23 +302,47 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home;
 
-  /// No description provided for @materials.
+  /// No description provided for @switchToLightTheme.
   ///
   /// In en, this message translates to:
-  /// **'Materials'**
-  String get materials;
+  /// **'Switch to light theme'**
+  String get switchToLightTheme;
 
-  /// No description provided for @my_vocabulary.
+  /// No description provided for @switchToDarkTheme.
   ///
   /// In en, this message translates to:
-  /// **'My vocabulary'**
-  String get my_vocabulary;
+  /// **'Switch to dark theme'**
+  String get switchToDarkTheme;
 
-  /// No description provided for @profile.
+  /// No description provided for @switchLanguage.
   ///
   /// In en, this message translates to:
-  /// **'Profile'**
-  String get profile;
+  /// **'Change language'**
+  String get switchLanguage;
+
+  /// No description provided for @showPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
+
+  /// No description provided for @sessionVerificationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to verify your session. Check your connection and retry.'**
+  String get sessionVerificationError;
+
+  /// No description provided for @retryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryButton;
 }
 
 class _AppLocalizationsDelegate

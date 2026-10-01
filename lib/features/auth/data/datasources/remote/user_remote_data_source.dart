@@ -1,4 +1,5 @@
 import 'package:todo/features/auth/data/models/auth_response_dto.dart';
+import 'package:todo/features/auth/data/models/user_dto.dart';
 
 abstract interface class UserRemoteDataSource {
   Future<AuthResponseDto> fetchUserByPassword(
@@ -12,5 +13,6 @@ abstract interface class UserRemoteDataSource {
     required String displayName,
     required String password,
   });
-}
 
+  Future<UserDto> fetchCurrentUser(String accessToken);
+}

@@ -1,14 +1,50 @@
+import 'dart:async';
+
 import 'package:either_dart/either.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo/core/error/failure.dart';
+import 'package:todo/core/providers/auth_session_events_provider.dart';
 import 'package:todo/features/auth/domain/entities/user.dart';
 import 'package:todo/features/auth/presentation/providers/auth_provider.dart';
+import 'package:todo/features/auth/presentation/providers/auth_state.dart';
 
-class AuthNotifier extends Notifier<User?> {
+class AuthNotifier extends Notifier<AuthState> {
+  Future<void>? _restoreSessionFuture;
+
   @override
-  User? build() {
-    return null;
+  AuthState build() {
+    final subscription = ref
+        .read(authSessionEventsProvider)
+        .expired
+        .listen((_) => state = const AuthState.unauthenticated());
+    ref.onDispose(() => unawaited(subscription.cancel()));
+    return const AuthState.checking();
+  }
+
+  Future<void> restoreSession() {
+    if (state.status != AuthStatus.checking) {
+      return Future<void>.value();
+    }
+    return _restoreSessionFuture ??= _restoreSession();
+  }
+
+  Future<void> _restoreSession() async {
+    try {
+      final result = await ref.read(restoreSessionUseCaseProvider).execute();
+      result.fold(
+        (failure) => state = AuthState.restorationFailed(failure),
+        (user) => state = user == null
+            ? const AuthState.unauthenticated()
+            : AuthState.authenticated(user),
+      );
+    } finally {
+      _restoreSessionFuture = null;
+    }
+  }
+
+  Future<void> retrySessionRestoration() async {
+    state = const AuthState.checking();
+    await restoreSession();
   }
 
   Future<Either<Failure, User>> login(String phone, String password) async {
@@ -17,7 +53,7 @@ class AuthNotifier extends Notifier<User?> {
 
     result.fold(
       (failure) {},
-      (user) => state = user,
+      (user) => state = AuthState.authenticated(user),
     );
 
     return result;
@@ -39,16 +75,14 @@ class AuthNotifier extends Notifier<User?> {
 
     result.fold(
       (failure) {},
-      (user) => state = user,
+      (user) => state = AuthState.authenticated(user),
     );
 
     return result;
   }
 
   Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('auth_token');
-    state = null;
+    await ref.read(logoutUseCaseProvider).execute();
+    state = const AuthState.unauthenticated();
   }
 }
-
